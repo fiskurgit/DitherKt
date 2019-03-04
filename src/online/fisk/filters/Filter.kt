@@ -2,9 +2,6 @@ package online.fisk.filters
 
 import kotlin.concurrent.thread
 
-//Java/Desktop: val destination = BufferedImage(width, height, BufferedImage.TYPE_INT_RGB)
-//Android: Todo
-
 abstract class FilterImage {
     abstract var width: Int
     abstract var height: Int

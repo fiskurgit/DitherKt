@@ -102,6 +102,7 @@ class Dither{
             set(value) {
                 //unused'
             }
+        
         override var height: Int
             get() = image.height
 
