@@ -1,6 +1,7 @@
 package online.fisk
 
 import online.fisk.filters.Filter
+import online.fisk.filters.FilterImage
 import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
@@ -35,26 +36,31 @@ class Dither{
     fun process(source: String, filterName: String, threshold: Int){
         out("DitherCL - processing...")
 
-        //Invalid source file string will exit
+        //Invalid source file or filter name will quit the process:
         val file = File(source)
         validateFile(source, file)
         validateFilter(filterName)
 
         val sourceImage: BufferedImage = ImageIO.read(file)
+
+        //Null image check:
         validateImage(sourceImage)
 
-        val processed = Filter.get(filterName)
+        val destination = BufferedImage(sourceImage.width, sourceImage.height, BufferedImage.TYPE_INT_RGB)
+        val destinationImpl = FilterImageImpl(destination)
+
+        Filter.get(filterName)
             .threshold(threshold)
-            .process(sourceImage)
+            .process(FilterImageImpl(sourceImage), destinationImpl) {
+                val exportFilename = "${file.nameWithoutExtension}_$filterName.png"
+                val exportFile = File(exportFilename)
 
-        val exportFilename = "${file.nameWithoutExtension}_$filterName.png"
-        val exportFile = File(exportFilename)
+                ImageIO.write(destinationImpl.image, "png", exportFile)
 
-        ImageIO.write(processed, "png", exportFile)
+                out("Processed image: $exportFilename")
 
-        out("Processed image: $exportFilename")
-
-        System.exit(0)
+                System.exit(0)
+            }
     }
 
     private fun validateFile(source: String, file: File){
@@ -83,6 +89,33 @@ class Dither{
                 out("File is not a valid image")
                 System.exit(-1)
             }
+        }
+    }
+
+
+    class FilterImageImpl(val image: BufferedImage): FilterImage() {
+
+        override var width: Int
+            get() = image.width
+
+            @Suppress("UNUSED_PARAMETER")
+            set(value) {
+                //unused'
+            }
+        override var height: Int
+            get() = image.height
+
+            @Suppress("UNUSED_PARAMETER")
+            set(value) {
+                //unused
+            }
+
+        override fun getPixel(x: Int, y: Int): Int {
+            return image.getRGB(x, y)
+        }
+
+        override fun setPixel(x: Int, y: Int, colour: Int) {
+            image.setRGB(x, y, colour)
         }
     }
 }
