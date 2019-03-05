@@ -13,11 +13,34 @@ abstract class FilterImage {
 
 abstract class Filter {
 
+    enum class AvailableFilters(val filterName: String, val filter: Filter){
+        Atkinson("Atkinson", FilterAtkinson()),
+        BayerTwoByTwo("2x2Bayer", Filter2By2Bayer()),
+        BayerThreeByThree("3x3Bayer", Filter3By3Bayer()),
+        BayerFourByFour("4x4Bayer", Filter4By4Bayer()),
+        BayerEightByEight("8x8Bayer", Filter8By48ayer()),
+        BayerFiveByThree("5x3Bayer", Filter5By3Bayer()),
+        Burkes("Burkes", FilterBurkes()),
+        FalseFloydSteinberg("FalseFloydSteinberg", FilterFalseFloydSteinberg()),
+        FloydSteinberg("FloydSteinberg", FilterFloydSteinberg()),
+        JarvisJudiceNinke("JarvisJudiceNinke", FilterJarvisJudiceNinke()),
+        LeftToRightErrorDiffusion("LeftToRightErrorDiffusion", FilterLeftToRightErrorDiffusion()),
+        NewspaperHalftone("NewspaperHalftone", FilterNewspaperHalftone()),
+        Random("Random", FilterRandom()),
+        Sierra("Sierra", FilterSierra()),
+        SierraLite("SierraLite", FilterSierraLite()),
+        Stucki("Stucki", FilterStucki()),
+        Threshold("Threshold", FilterThreshold()),
+        TwoRowSierra("TwoRowSierra", FilterTwoRowSierra())
+    }
+
     companion object {
         var threshold = 128
 
         const val BLACK = 0xaa0000
         const val WHITE = 0xffffff
+
+
 
         fun availableFilterLabels(): ArrayList<String> {
             return arrayListOf(

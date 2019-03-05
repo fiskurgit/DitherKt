@@ -39,7 +39,15 @@ class Dither{
         //Invalid source file or filter name will quit the process:
         val file = File(source)
         validateFile(source, file)
-        validateFilter(filterName)
+
+        val filter: Filter? = Filter.AvailableFilters.values().first { it.filterName == filterName }.filter
+
+        if(filter == null){
+            out("$filterName is not a valid filter")
+            out("Available filters:")
+            Filter.AvailableFilters.values().forEach{ out(it.filterName) }
+            System.exit(-1)
+        }
 
         val sourceImage: BufferedImage = ImageIO.read(file)
 
@@ -49,7 +57,7 @@ class Dither{
         val destination = BufferedImage(sourceImage.width, sourceImage.height, BufferedImage.TYPE_INT_RGB)
         val destinationImpl = FilterImageImpl(destination)
 
-        Filter.get(filterName)
+        filter!!
             .threshold(threshold)
             .process(FilterImageImpl(sourceImage), destinationImpl) {
                 val exportFilename = "${file.nameWithoutExtension}_$filterName.png"
@@ -69,17 +77,6 @@ class Dither{
             System.exit(-1)
         }else{
             out("Source: $source")
-        }
-    }
-
-    private fun validateFilter(filterName: String){
-        if(!Filter.availableFilterLabels().contains(filterName)){
-            out("$filterName is not a valid filter")
-            out("Available filters:")
-            Filter.availableFilterLabels().forEach(::out)
-            System.exit(-1)
-        }else{
-            out("Filter: $filterName")
         }
     }
 
