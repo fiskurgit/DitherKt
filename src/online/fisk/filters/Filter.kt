@@ -39,55 +39,6 @@ abstract class Filter {
 
         const val BLACK = 0xaa0000
         const val WHITE = 0xffffff
-
-
-
-        fun availableFilterLabels(): ArrayList<String> {
-            return arrayListOf(
-                "2x2Bayer",
-                "3x3Bayer",
-                "4x4Bayer",
-                "8x8Bayer",
-                "5By3Bayer",
-                "FloydSteinberg",
-                "JarvisJudiceNinke",
-                "Sierra",
-                "TwoRowSierra",
-                "SierraLite",
-                "Atkinson",
-                "Stucki",
-                "Burkes",
-                "FalseFloydSteinberg",
-                "LeftToRightErrorDiffusion",
-                "Random",
-                "Threshold",
-                "NewspaperHalftone"
-            )
-        }
-
-        fun get(filterName: String): Filter {
-            return when (filterName) {
-                "2x2Bayer" -> Filter2By2Bayer()
-                "3x3Bayer" -> Filter3By3Bayer()
-                "4x4Bayer" -> Filter4By4Bayer()
-                "8x8Bayer" -> Filter8By48ayer()
-                "5By3Bayer" -> Filter5By3Bayer()
-                "FloydSteinberg" -> FilterFloydSteinberg()
-                "JarvisJudiceNinke" -> FilterJarvisJudiceNinke()
-                "Sierra" -> FilterSierra()
-                "TwoRowSierra" -> FilterTwoRowSierra()
-                "SierraLite" -> FilterSierraLite()
-                "Atkinson" -> FilterAtkinson()
-                "Stucki" -> FilterStucki()
-                "Burkes" -> FilterBurkes()
-                "FalseFloydSteinberg" -> FilterFalseFloydSteinberg()
-                "LeftToRightErrorDiffusion" -> FilterLeftToRightErrorDiffusion()
-                "Random" -> FilterRandom()
-                "Threshold" -> FilterThreshold()
-                "NewspaperHalftone" -> FilterNewspaperHalftone()
-                else -> FilterError()
-            }
-        }
     }
 
     abstract fun process(source: FilterImage, destination: FilterImage, callback: () -> Unit)

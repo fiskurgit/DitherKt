@@ -30,7 +30,7 @@ class Dither{
         out("DitherCL - Help")
         out("Usage: DitherCL pathToImage filterName")
         out("Available filters:")
-        Filter.availableFilterLabels().forEach(::out)
+        Filter.AvailableFilters.values().forEach{ out(it.filterName) }
     }
 
     fun process(source: String, filterName: String, threshold: Int){
