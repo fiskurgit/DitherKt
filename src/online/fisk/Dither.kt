@@ -40,7 +40,7 @@ class Dither{
         val file = File(source)
         validateFile(source, file)
 
-        val filter: Filter? = Filter.AvailableFilters.values().firstOrNull { it.filterName == filterName }.filter
+        val filter: Filter? = Filter.AvailableFilters.values().firstOrNull { it.filterName == filterName }?.filter
 
         if(filter == null){
             out("$filterName is not a valid filter")
