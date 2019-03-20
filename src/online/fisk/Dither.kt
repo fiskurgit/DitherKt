@@ -65,7 +65,8 @@ class Dither{
 
                 ImageIO.write(destinationImpl.image, "png", exportFile)
 
-                out("Processed image: $exportFilename")
+                out("Processed image:")
+                out(exportFilename)
 
                 System.exit(0)
             }

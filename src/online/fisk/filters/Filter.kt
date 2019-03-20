@@ -37,7 +37,7 @@ abstract class Filter {
     companion object {
         var threshold = 128
 
-        const val BLACK = 0xaa0000
+        const val BLACK = 0x000000
         const val WHITE = 0xffffff
     }
 
