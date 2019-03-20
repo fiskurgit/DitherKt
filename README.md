@@ -29,6 +29,6 @@ Threshold
 TwoRowSierra
 ```
 
-Example With threshold argument (range 1 to 256): `java -jar DitherCL.jar image.png 8x8Bayer 100`
+Example with threshold argument (range 1 to 256): `java -jar DitherCL.jar image.png 8x8Bayer 100`
 
 ![Sample](test_anna_8x8Bayer.png)
